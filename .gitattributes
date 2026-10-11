@@ -1,0 +1,3 @@
+# Script dosyalari bayt bayt karsilastiriyor; Windows CRLF donusumu --check sonucunu bozmasin.
+* text=auto eol=lf
+*.png binary
