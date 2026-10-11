@@ -52,7 +52,7 @@
     "8099/tcp": "Frontend tcp-listen port"
   },
   "options": {
-    "data_path": "/config/imalat_hol_3",
+    "data_path": "/config/z2m-imalat-hol-3",
     "socat": {
       "enabled": false,
       "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",

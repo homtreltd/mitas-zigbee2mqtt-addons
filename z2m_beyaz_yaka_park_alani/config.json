@@ -52,7 +52,7 @@
     "8099/tcp": "Frontend tcp-listen port"
   },
   "options": {
-    "data_path": "/config/beyaz_yaka_park_alani",
+    "data_path": "/config/z2m-beyaz-yaka-park-alani",
     "socat": {
       "enabled": false,
       "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",

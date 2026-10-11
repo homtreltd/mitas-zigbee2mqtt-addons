@@ -48,66 +48,66 @@ instances:
 
   - id: idari_bina_kat0_kantin
     name: "Zigbee2MQTT - Zemin Kat Kantin (Dongle 7)"
-    data_path: /config/idari_bina_kat0_kantin
+    data_path: /config/z2m-zeminkat-kantin-dongle7
     socat_port: 8491
     dongle_ip: 192.168.146.10
 
   - id: ndt_alani
     name: "Zigbee2MQTT - NDT Alanı (Dongle 8)"
-    data_path: /config/ndt_alani
+    data_path: /config/z2m-ndt-alani
     socat_port: 8492
     dongle_ip: 192.168.146.12
 
   - id: tup_alani
     name: "Zigbee2MQTT - Tüp Alanı (Dongle 9)"
-    data_path: /config/tup_alani
+    data_path: /config/z2m-tup-alani
     socat_port: 8493
     dongle_ip: null
 
   - id: mal_kabul
     name: "Zigbee2MQTT - Mal Kabul (Dongle 10)"
-    data_path: /config/mal_kabul
+    data_path: /config/z2m-mal-kabul
     socat_port: 8494
     dongle_ip: null
 
   - id: beyaz_yaka_park_alani
     name: "Zigbee2MQTT - Beyaz Park Alanı (Dongle 11)"
-    data_path: /config/beyaz_yaka_park_alani
+    data_path: /config/z2m-beyaz-yaka-park-alani
     socat_port: 8495
     dongle_ip: null
 
   - id: revir
     name: "Zigbee2MQTT - Revir (Dongle 12)"
-    data_path: /config/revir
+    data_path: /config/z2m-revir
     socat_port: 8496
     dongle_ip: null
 
   - id: imalat_hol_5
     name: "Zigbee2MQTT - İmalat Hol 5 (Dongle 13)"
-    data_path: /config/imalat_hol_5
+    data_path: /config/z2m-imalat-hol-5
     socat_port: 8497
     dongle_ip: null
 
   - id: imalat_hol_4
     name: "Zigbee2MQTT - İmalat Hol 4 (Dongle 14)"
-    data_path: /config/imalat_hol_4
+    data_path: /config/z2m-imalat-hol-4
     socat_port: 8498
     dongle_ip: 192.168.146.14
 
   - id: imalat_hol_3
     name: "Zigbee2MQTT - İmalat Hol 3 (Dongle 15)"
-    data_path: /config/imalat_hol_3
+    data_path: /config/z2m-imalat-hol-3
     socat_port: 8499
     dongle_ip: 192.168.146.13
 
   - id: imalat_hol_2
     name: "Zigbee2MQTT - İmalat Hol 2 (Dongle 16)"
-    data_path: /config/imalat_hol_2
+    data_path: /config/z2m-imalat-hol-2
     socat_port: 8500
     dongle_ip: null
 
   - id: imalat_hol_1
     name: "Zigbee2MQTT - İmalat Hol 1 (Dongle 17)"
-    data_path: /config/imalat_hol_1
+    data_path: /config/z2m-imalat-hol-1
     socat_port: 8501
     dongle_ip: null
