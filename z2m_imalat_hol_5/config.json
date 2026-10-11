@@ -60,7 +60,9 @@
       "options": "-d -d",
       "log": false
     },
-    "mqtt": {},
+    "mqtt": {
+      "base_topic": "z2m-imalat-hol-5"
+    },
     "serial": {}
   },
   "schema": {

@@ -7,7 +7,14 @@
 # data_path  : Z2M verisinin durduğu /config altındaki klasör (configuration.yaml,
 #              database.db, coordinator_backup.json). Mevcut kurulumlarda klasör adı birebir aynı kalmalı.
 # socat_port : add-on'un 8485/tcp portunun host'taki karşılığı. Her instance'ta farklı olmalı.
-# dongle_ip  : sadece bilgi amaçlı (seri bağlantı data_path içindeki configuration.yaml'da tanımlı).
+# dongle_ip  : doluysa add-on ilk kurulumda serial ayarını hazır getirir
+#              (tcp://<ip>:6638, ember, 115200). Boşsa serial elle girilir.
+# base_topic : (isteğe bağlı) MQTT topic. Yazılmazsa data_path klasör adı kullanılır.
+#              Mevcut kurulumda configuration.yaml'daki base_topic ile AYNI olmalı.
+#
+# MQTT server/user/password yazılmaz: boş kalınca add-on bunları Supervisor'ın Mosquitto
+# servisinden otomatik alır (kullanıcı "addons"). Bu repo public, şifre buraya girmez.
+# Not: bu varsayılanlar sadece İLK kurulumda gelir; kurulu add-on'un ayarlarını değiştirmez.
 
 instances:
   - id: idari_bina_kat2_1
@@ -25,12 +32,14 @@ instances:
   - id: idari_bina_kat1_1
     name: "Zigbee2MQTT - İdari Bina Kat 1 (Dongle 3)"
     data_path: /config/binakat1
+    base_topic: zigbee2mqtt1
     socat_port: 8485
     dongle_ip: 192.168.146.7
 
   - id: idari_bina_kat1_2
     name: "Zigbee2MQTT - İdari Bina Kat 1 (Dongle 4)"
     data_path: /config/binakat1iki
+    base_topic: zigbee2mqtt2
     socat_port: 8486
     dongle_ip: 192.168.146.6
 

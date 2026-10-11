@@ -60,8 +60,14 @@
       "options": "-d -d",
       "log": false
     },
-    "mqtt": {},
-    "serial": {}
+    "mqtt": {
+      "base_topic": "z2m-imalat-hol-4"
+    },
+    "serial": {
+      "port": "tcp://192.168.146.14:6638",
+      "adapter": "ember",
+      "baudrate": 115200
+    }
   },
   "schema": {
     "data_path": "str",

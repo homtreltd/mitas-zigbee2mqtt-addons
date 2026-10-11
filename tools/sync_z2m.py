@@ -27,6 +27,9 @@ UPSTREAM_FILES = ["config.json", "icon.png", "logo.png", "DOCS.md", "CHANGELOG.m
 OWN_REPO_URL = "https://github.com/homtreltd/mitas-zigbee2mqtt-addons"
 SLUG_PREFIX = "z2m_"
 SOCAT_CONTAINER_PORT = "8485/tcp"
+DONGLE_TCP_PORT = 6638  # Sonoff Dongle Max TCP serial portu
+DONGLE_ADAPTER = "ember"
+DONGLE_BAUDRATE = 115200
 
 ROOT = Path(__file__).resolve().parent.parent
 ID_RE = re.compile(r"^[a-z0-9_]+$")
@@ -41,8 +44,15 @@ def load_instances() -> list[dict]:
     data = yaml.safe_load((ROOT / "instances.yaml").read_text(encoding="utf-8"))
     instances = data["instances"]
     errors = []
-    for field in ("id", "data_path", "socat_port"):
-        values = [str(i.get(field)) for i in instances]
+    checks = {
+        "id": lambda i: str(i.get("id")),
+        "data_path": lambda i: str(i.get("data_path")),
+        "socat_port": lambda i: str(i.get("socat_port")),
+        "base_topic": lambda i: base_topic(i) if i.get("data_path") else "",
+        "dongle_ip": lambda i: str(i.get("dongle_ip") or f"<boş:{i.get('id')}>"),
+    }
+    for field, get in checks.items():
+        values = [get(i) for i in instances]
         dupes = {v for v in values if values.count(v) > 1}
         if dupes:
             errors.append(f"tekrarlanan {field}: {', '.join(sorted(dupes))}")
@@ -66,8 +76,21 @@ def build_config(upstream: dict, inst: dict) -> dict:
     ip = inst.get("dongle_ip")
     cfg["description"] = upstream["description"] + (f" — dongle {ip}" if ip else "")
     cfg["options"]["data_path"] = inst["data_path"]
+    # Sadece base_topic: server/user/password boş kalınca add-on bunları Supervisor'ın
+    # Mosquitto servisinden alır. Şifre public repoya asla yazılmaz.
+    cfg["options"]["mqtt"] = {"base_topic": base_topic(inst)}
+    if ip:
+        cfg["options"]["serial"] = {
+            "port": f"tcp://{ip}:{DONGLE_TCP_PORT}",
+            "adapter": DONGLE_ADAPTER,
+            "baudrate": DONGLE_BAUDRATE,
+        }
     cfg.setdefault("ports", {})[SOCAT_CONTAINER_PORT] = int(inst["socat_port"])
     return cfg
+
+
+def base_topic(inst: dict) -> str:
+    return inst.get("base_topic") or inst["data_path"].rstrip("/").rsplit("/", 1)[-1]
 
 
 def main() -> int:
