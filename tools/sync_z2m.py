@@ -7,7 +7,7 @@ Kullanım:
     python tools/sync_z2m.py --prune    # instances.yaml'da olmayan z2m_* klasörlerini de sil
 
 Upstream config.json olduğu gibi kopyalanır; sadece slug, name, url, description,
-options.data_path ve 8485/tcp host portu değiştirilir. version ve image ASLA değişmez:
+options.data_path, options.watchdog ve 8485/tcp host portu değiştirilir. version ve image ASLA değişmez:
 Supervisor imajı ghcr.io/zigbee2mqtt/zigbee2mqtt-{arch}:<version> olarak çeker.
 """
 
@@ -30,6 +30,11 @@ SOCAT_CONTAINER_PORT = "8485/tcp"
 DONGLE_TCP_PORT = 6638  # Sonoff Dongle Max TCP serial portu
 DONGLE_ADAPTER = "ember"
 DONGLE_BAUDRATE = 115200
+# Z2M'nin kendi watchdog'u (add-on seçeneği `watchdog` = Z2M_WATCHDOG): dakika cinsinden, virgülle
+# ayrılmış yeniden deneme beklemeleri. Z2M başarılı başladıktan sonra beklenmedik durursa (ör.
+# "Adapter disconnected") bu beklemelerle process içinde yeniden başlar; liste biterse çıkar ve
+# Supervisor Watchdog devralır. Sadece rakam, "." ve "," olmalı, aksi halde Z2M hiç başlamaz.
+WATCHDOG_DELAYS = "0.5,2,3,5,3,1,1,1,1,3,3,3,3,3,3,3"
 
 ROOT = Path(__file__).resolve().parent.parent
 ID_RE = re.compile(r"^[a-z0-9_]+$")
@@ -79,6 +84,7 @@ def build_config(upstream: dict, inst: dict) -> dict:
     # Sadece base_topic: server/user/password boş kalınca add-on bunları Supervisor'ın
     # Mosquitto servisinden alır. Şifre public repoya asla yazılmaz.
     cfg["options"]["mqtt"] = {"base_topic": base_topic(inst)}
+    cfg["options"]["watchdog"] = WATCHDOG_DELAYS
     if ip:
         cfg["options"]["serial"] = {
             "port": f"tcp://{ip}:{DONGLE_TCP_PORT}",
