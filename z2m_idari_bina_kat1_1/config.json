@@ -1,6 +1,6 @@
 {
   "name": "Zigbee2MQTT - İdari Bina Kat 1 (Dongle 3)",
-  "version": "2.14.2-1",
+  "version": "2.14.3-1",
   "slug": "z2m_idari_bina_kat1_1",
   "description": "Use your ZigBee devices without the vendor's bridge or gateway — dongle 192.168.146.7",
   "breaking_versions": [

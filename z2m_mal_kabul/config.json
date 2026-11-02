@@ -1,6 +1,6 @@
 {
   "name": "Zigbee2MQTT - Mal Kabul (Dongle 10)",
-  "version": "2.14.2-1",
+  "version": "2.14.3-1",
   "slug": "z2m_mal_kabul",
   "description": "Use your ZigBee devices without the vendor's bridge or gateway — dongle 192.168.146.20",
   "breaking_versions": [
